@@ -6,12 +6,15 @@
   "description": "",
   "scripts": {
     "build": "esbuild --bundle --sourcemap --sources-content=false --target=es2022 --format=esm --loader:.ttf=file --outdir=romfs src/main.js",
+    "watch": "esbuild --watch --bundle --sourcemap --sources-content=false --target=es2022 --format=esm --loader:.ttf=file --outdir=romfs src/main.js",
     "nro": "nxjs-nro",
     "nsp": "nxjs-nsp"
   },
   "license": "MIT",
   "dependencies": {
-    "@nx.js/constants": "0.2.0"
+    "@nx.js/constants": "0.2.0",
+    "@nx.js/repl": "^0.0.5",
+    "sisteransi": "^1.0.5"
   },
   "devDependencies": {
     "@nx.js/nro": "^0.0.54",
