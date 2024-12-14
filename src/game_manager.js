@@ -118,12 +118,12 @@ export class GameManager {
     this.grid.cells[cell.x][cell.y] = tile;
     tile.updatePosition(cell);
   }
-  // undo
+  // TODO: actually implement this
   undo() {
     this.previousTiles = this.grid;
     if (this.undoAvailable) {
       this.actuate();
-    } else {
+      this.undoAvailable = false;
     }
   }
   // Move tiles on the grid in the specified direction
@@ -170,6 +170,7 @@ export class GameManager {
             if (merged.value === 2048) self.won = true;
           } else {
             self.moveTile(tile, positions.farthest);
+            self.undoAvailable = true;
           }
 
           if (!self.positionsEqual(cell, tile)) {

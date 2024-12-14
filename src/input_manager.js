@@ -21,9 +21,11 @@ class GamepadEvents extends Array {
     for (let i = 0; i < this.length; i++) {
       const gamepad = gamepads[i];
       if (!gamepad) continue;
-      const horizontalAxis = gamepad.axes[0];
-      // Vertical axis (usually index 1)
-      const verticalAxis = gamepad.axes[1];
+      const leftHorizontalAxis = gamepad.axes[0];
+      const leftVerticalAxis = gamepad.axes[1];
+      const rightHorizontalAxis = gamepad.axes[2];
+      const rightVerticalAxis = gamepad.axes[2];
+
       for (let j = 0; j < gamepad.buttons.length; j++) {
         const wasPressed = this[i].pressed[j];
         const pressed = gamepad.buttons[j].pressed;
@@ -42,7 +44,7 @@ class GamepadEvents extends Array {
 
       // fake left button
       const wasLeftPressed = this.axisLeft;
-      const isLeftPressed = horizontalAxis < -this.THRESHOLD;
+      const isLeftPressed = leftHorizontalAxis < -this.THRESHOLD;
       if (isLeftPressed && !wasLeftPressed) {
         this[i].dispatchEvent(
           new CustomEvent("buttondown", { detail: Button.Left })
@@ -50,7 +52,7 @@ class GamepadEvents extends Array {
       }
       // fake right button
       const wasRightPressed = this.axisRight;
-      const isRightPressed = horizontalAxis > this.THRESHOLD;
+      const isRightPressed = leftHorizontalAxis > this.THRESHOLD;
       if (isRightPressed && !wasRightPressed) {
         this[i].dispatchEvent(
           new CustomEvent("buttondown", { detail: Button.Right })
@@ -59,7 +61,7 @@ class GamepadEvents extends Array {
 
       // fake up button
       const wasUpPressed = this.axisUp;
-      const isUpPressed = verticalAxis < -this.THRESHOLD;
+      const isUpPressed = leftVerticalAxis < -this.THRESHOLD;
       if (isUpPressed && !wasUpPressed) {
         this[i].dispatchEvent(
           new CustomEvent("buttondown", { detail: Button.Up })
@@ -68,7 +70,7 @@ class GamepadEvents extends Array {
 
       // fake down button
       const wasDownPressed = this.axisDown;
-      const isDownPressed = verticalAxis > this.THRESHOLD;
+      const isDownPressed = leftVerticalAxis > this.THRESHOLD;
       if (isDownPressed && !wasDownPressed) {
         this[i].dispatchEvent(
           new CustomEvent("buttondown", { detail: Button.Down })

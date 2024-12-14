@@ -12,9 +12,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@nx.js/constants": "0.2.0",
-    "@nx.js/repl": "^0.0.5",
-    "sisteransi": "^1.0.5"
+    "@nx.js/constants": "0.2.0"
   },
   "devDependencies": {
     "@nx.js/nro": "^0.0.54",
@@ -23,7 +21,7 @@
     "esbuild": "^0.17.19"
   },
   "author": {
-    "name": "Nathan Rajlich",
+    "name": "Nathan Rajlich & i0x0",
     "email": "n@n8.io"
   },
   "packageManager": "pnpm@9.10.0+sha512.73a29afa36a0d092ece5271de5177ecbf8318d454ecd701343131b8ebc0c1a91c487da46ab77c8e596d6acf1461e3594ced4becedf8921b074fbd8653ed7051c"
