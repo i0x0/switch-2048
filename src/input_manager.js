@@ -1,7 +1,7 @@
 import { Button } from "@nx.js/constants";
 
 class GamepadEvents extends Array {
-  THRESHOLD = 0.75;
+  THRESHOLD = 0.9;
   axisUp = false;
   axisDown = false;
   axisLeft = false;
@@ -23,8 +23,6 @@ class GamepadEvents extends Array {
       if (!gamepad) continue;
       const leftHorizontalAxis = gamepad.axes[0];
       const leftVerticalAxis = gamepad.axes[1];
-      const rightHorizontalAxis = gamepad.axes[2];
-      const rightVerticalAxis = gamepad.axes[2];
 
       for (let j = 0; j < gamepad.buttons.length; j++) {
         const wasPressed = this[i].pressed[j];
