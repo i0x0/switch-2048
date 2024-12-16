@@ -6,6 +6,7 @@
   "description": "",
   "scripts": {
     "build": "esbuild --bundle --sourcemap --sources-content=false --target=es2022 --format=esm --loader:.ttf=file --outdir=romfs src/main.js",
+    "watch": "esbuild --watch --bundle --sourcemap --sources-content=false --target=es2022 --format=esm --loader:.ttf=file --outdir=romfs src/main.js",
     "nro": "nxjs-nro",
     "nsp": "nxjs-nsp"
   },
@@ -23,5 +24,11 @@
     "name": "Nathan Rajlich",
     "email": "n@n8.io"
   },
+  "contributors": [
+    {
+      "name": "i0x0",
+      "email": "triniziah@gmail.com"
+    }
+  ],
   "packageManager": "pnpm@9.10.0+sha512.73a29afa36a0d092ece5271de5177ecbf8318d454ecd701343131b8ebc0c1a91c487da46ab77c8e596d6acf1461e3594ced4becedf8921b074fbd8653ed7051c"
 }

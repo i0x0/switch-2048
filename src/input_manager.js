@@ -1,6 +1,11 @@
 import { Button } from '@nx.js/constants';
 
 class GamepadEvents extends Array {
+	THRESHOLD = 0.9;
+	axisUp = false;
+	axisDown = false;
+	axisLeft = false;
+	axisRight = false;
 	constructor(numPlayers) {
 		super(numPlayers);
 		for (let i = 0; i < numPlayers; i++) {
@@ -16,6 +21,9 @@ class GamepadEvents extends Array {
 		for (let i = 0; i < this.length; i++) {
 			const gamepad = gamepads[i];
 			if (!gamepad) continue;
+			const leftHorizontalAxis = gamepad.axes[0];
+			const leftVerticalAxis = gamepad.axes[1];
+
 			for (let j = 0; j < gamepad.buttons.length; j++) {
 				const wasPressed = this[i].pressed[j];
 				const pressed = gamepad.buttons[j].pressed;
@@ -27,6 +35,51 @@ class GamepadEvents extends Array {
 					this[i].dispatchEvent(new CustomEvent('buttonup', { detail: j }));
 				}
 			}
+			// ---------
+			// first axis is X (-1 is all the way left & 1 is all the way right)
+			// second axis is Y (-1 is all the way up & 1 is all the way down)
+			// ---------
+
+			// fake left button
+			const wasLeftPressed = this.axisLeft;
+			const isLeftPressed = leftHorizontalAxis < -this.THRESHOLD;
+			if (isLeftPressed && !wasLeftPressed) {
+				this[i].dispatchEvent(
+					new CustomEvent('buttondown', { detail: Button.Left }),
+				);
+			}
+			// fake right button
+			const wasRightPressed = this.axisRight;
+			const isRightPressed = leftHorizontalAxis > this.THRESHOLD;
+			if (isRightPressed && !wasRightPressed) {
+				this[i].dispatchEvent(
+					new CustomEvent('buttondown', { detail: Button.Right }),
+				);
+			}
+
+			// fake up button
+			const wasUpPressed = this.axisUp;
+			const isUpPressed = leftVerticalAxis < -this.THRESHOLD;
+			if (isUpPressed && !wasUpPressed) {
+				this[i].dispatchEvent(
+					new CustomEvent('buttondown', { detail: Button.Up }),
+				);
+			}
+
+			// fake down button
+			const wasDownPressed = this.axisDown;
+			const isDownPressed = leftVerticalAxis > this.THRESHOLD;
+			if (isDownPressed && !wasDownPressed) {
+				this[i].dispatchEvent(
+					new CustomEvent('buttondown', { detail: Button.Down }),
+				);
+			}
+
+			// Update button states
+			this.axisUp = isUpPressed;
+			this.axisDown = isDownPressed;
+			this.axisLeft = isLeftPressed;
+			this.axisRight = isRightPressed;
 		}
 	};
 }

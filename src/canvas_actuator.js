@@ -73,17 +73,20 @@ export class CanvasActuator {
 		instructionsTextY += 50;
 		this.ctx.font = '24px "Clear Sans"';
 		this.ctx.fillText(
-			'Use the D-pad or swipe the',
-			instructionsTextX,
-			instructionsTextY,
-		);
-		instructionsTextY += 30;
-		this.ctx.fillText(
-			'screen to move the tiles.',
+			'Use the D-pad, swipe the',
 			instructionsTextX,
 			instructionsTextY,
 		);
 
+		instructionsTextY += 30;
+		this.ctx.fillText(
+			'screen or use the sticks to',
+			instructionsTextX,
+			instructionsTextY,
+		);
+
+		instructionsTextY += 30;
+		this.ctx.fillText('move the tiles.', instructionsTextX, instructionsTextY);
 		instructionsTextY += 60;
 		this.ctx.fillText(
 			'Tiles with the same',
