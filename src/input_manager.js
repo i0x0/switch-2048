@@ -1,4 +1,4 @@
-import { Button } from '@nx.js/constants';
+import { Button } from "@nx.js/constants";
 
 class GamepadEvents extends Array {
 	THRESHOLD = 0.9;
@@ -29,10 +29,10 @@ class GamepadEvents extends Array {
 				const pressed = gamepad.buttons[j].pressed;
 				if (!wasPressed && pressed) {
 					this[i].pressed[j] = true;
-					this[i].dispatchEvent(new CustomEvent('buttondown', { detail: j }));
+					this[i].dispatchEvent(new CustomEvent("buttondown", { detail: j }));
 				} else if (wasPressed && !pressed) {
 					this[i].pressed[j] = false;
-					this[i].dispatchEvent(new CustomEvent('buttonup', { detail: j }));
+					this[i].dispatchEvent(new CustomEvent("buttonup", { detail: j }));
 				}
 			}
 			// ---------
@@ -45,7 +45,7 @@ class GamepadEvents extends Array {
 			const isLeftPressed = leftHorizontalAxis < -this.THRESHOLD;
 			if (isLeftPressed && !wasLeftPressed) {
 				this[i].dispatchEvent(
-					new CustomEvent('buttondown', { detail: Button.Left }),
+					new CustomEvent("buttondown", { detail: Button.Left }),
 				);
 			}
 			// fake right button
@@ -53,7 +53,7 @@ class GamepadEvents extends Array {
 			const isRightPressed = leftHorizontalAxis > this.THRESHOLD;
 			if (isRightPressed && !wasRightPressed) {
 				this[i].dispatchEvent(
-					new CustomEvent('buttondown', { detail: Button.Right }),
+					new CustomEvent("buttondown", { detail: Button.Right }),
 				);
 			}
 
@@ -62,7 +62,7 @@ class GamepadEvents extends Array {
 			const isUpPressed = leftVerticalAxis < -this.THRESHOLD;
 			if (isUpPressed && !wasUpPressed) {
 				this[i].dispatchEvent(
-					new CustomEvent('buttondown', { detail: Button.Up }),
+					new CustomEvent("buttondown", { detail: Button.Up }),
 				);
 			}
 
@@ -71,7 +71,7 @@ class GamepadEvents extends Array {
 			const isDownPressed = leftVerticalAxis > this.THRESHOLD;
 			if (isDownPressed && !wasDownPressed) {
 				this[i].dispatchEvent(
-					new CustomEvent('buttondown', { detail: Button.Down }),
+					new CustomEvent("buttondown", { detail: Button.Down }),
 				);
 			}
 
@@ -92,7 +92,7 @@ export class InputManager {
 	listen() {
 		// Respond to swipe events
 		var touchStartClientX, touchStartClientY;
-		screen.addEventListener('touchstart', (event) => {
+		screen.addEventListener("touchstart", (event) => {
 			if (event.touches.length > 1) {
 				return; // Ignore if touching with more than 1 finger
 			}
@@ -103,11 +103,11 @@ export class InputManager {
 			event.preventDefault();
 		});
 
-		screen.addEventListener('touchmove', (event) => {
+		screen.addEventListener("touchmove", (event) => {
 			event.preventDefault();
 		});
 
-		screen.addEventListener('touchend', (event) => {
+		screen.addEventListener("touchend", (event) => {
 			if (event.touches.length > 0) {
 				return; // Ignore if still touching with one or more fingers
 			}
@@ -129,7 +129,7 @@ export class InputManager {
 			}
 		});
 
-		addEventListener('beforeunload', (event) => {
+		addEventListener("beforeunload", (event) => {
 			if (this.gameManager.won && !this.gameManager.keepPlaying) {
 				event.preventDefault();
 				this.gameManager.continueGame();
@@ -138,7 +138,7 @@ export class InputManager {
 
 		const gamepadEvents = new GamepadEvents(1);
 
-		gamepadEvents[0].addEventListener('buttondown', (event) => {
+		gamepadEvents[0].addEventListener("buttondown", (event) => {
 			if (event.detail === Button.Left) {
 				this.gameManager.move(3);
 			} else if (event.detail === Button.Right) {
@@ -149,8 +149,6 @@ export class InputManager {
 				this.gameManager.move(2);
 			} else if (event.detail === Button.Minus) {
 				this.gameManager.restart();
-			} else if (event.detail === Button.Y) {
-				this.gameManager.undo();
 			}
 		});
 	}

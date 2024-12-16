@@ -38,10 +38,8 @@ export class GameManager {
 			this.score = previousState.score;
 			this.over = previousState.over;
 			this.won = previousState.won;
-			this.undoAvailable = previousState.undoAvailable;
 			this.keepPlaying = previousState.keepPlaying;
 		} else {
-			this.undoAvailable = true;
 			this.grid = new Grid(this.size);
 			this.score = 0;
 			this.over = false;
@@ -99,7 +97,6 @@ export class GameManager {
 			over: this.over,
 			won: this.won,
 			keepPlaying: this.keepPlaying,
-			undoAvailable: this.undoAvailable,
 		};
 	}
 	// Save all tile positions and remove merger info
@@ -110,21 +107,12 @@ export class GameManager {
 				tile.savePosition();
 			}
 		});
-		this.previousTiles = this.grid;
 	}
 	// Move a tile and its representation
 	moveTile(tile, cell) {
 		this.grid.cells[tile.x][tile.y] = null;
 		this.grid.cells[cell.x][cell.y] = tile;
 		tile.updatePosition(cell);
-	}
-	// TODO: actually implement this
-	undo() {
-		this.previousTiles = this.grid;
-		if (this.undoAvailable) {
-			this.actuate();
-			this.undoAvailable = false;
-		}
 	}
 	// Move tiles on the grid in the specified direction
 	move(direction) {
@@ -170,7 +158,6 @@ export class GameManager {
 						if (merged.value === 2048) self.won = true;
 					} else {
 						self.moveTile(tile, positions.farthest);
-						self.undoAvailable = true;
 					}
 
 					if (!self.positionsEqual(cell, tile)) {

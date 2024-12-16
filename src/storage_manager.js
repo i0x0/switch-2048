@@ -10,7 +10,6 @@ export class StorageManager {
 		}
 		this.bestScore = saved?.bestScore ?? 0;
 		this.gameState = saved?.gameState ?? null;
-		this.darkMode = saved?.darkMode ?? false;
 
 		// Store game state on the SD card upon exit
 		addEventListener('unload', this.onExit.bind(this));
@@ -28,9 +27,6 @@ export class StorageManager {
 	}
 	setGameState(gameState) {
 		this.gameState = gameState;
-	}
-	setDarkmode() {
-		this.darkMode = !this.darkMode;
 	}
 	clearGameState() {
 		this.gameState = null;
